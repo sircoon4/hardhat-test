@@ -2,23 +2,47 @@ const hre = require("hardhat");
 
 async function main() {
     const accounts = await hre.ethers.getSigners();
-    const contractAddress = "0x9b3B97F1c9803F5160C8BEB9d0B3b61281E7041D";
+    const contractAddress = "0x8475Bb2D06FC39d707f60b86BFBB924d5976288f";
 
     const ActionParser = await hre.ethers.getContractFactory("ActionParser");
     const actionParser = await ActionParser.attach(contractAddress);
     const actionParserWithSigner = actionParser.connect(accounts[0]);
 
-    let result = await actionParserWithSigner.readHackAndSlash();
-    console.log("HackAndSlash result:")
-    console.log(result);
+    var result;
 
-    result = await actionParserWithSigner.readGrinding();
-    console.log("Grinding result:")
-    console.log(result);
+    // result = await actionParserWithSigner.readHackAndSlash();
+    // console.log("HackAndSlash result:");
+    // console.log(result);
 
-    result = await actionParserWithSigner.readCombinationEquipment();
-    console.log("CombinationEquipment result:")
+    // result = await actionParserWithSigner.readGrinding();
+    // console.log("Grinding result:");
+    // console.log(result);
+
+    // result = await actionParserWithSigner.readCombinationEquipment();
+    // console.log("CombinationEquipment result:");
+    // console.log(result);
+
+    // result = await actionParserWithSigner.readRapidCombination();
+    // console.log("RapidCombination result:");
+    // console.log(result);
+
+    // result = await actionParserWithSigner.readHackAndSlashSweep();
+    // console.log("HackAndSlashSweep result:");
+    // console.log(result);
+
+    // result = await actionParserWithSigner.readTransferAsset();
+    // console.log("TransferAsset result:");
+    // console.log(result);
+    // console.log(result[2][0]);
+
+    result = await actionParserWithSigner.readClaimItems();
+    console.log("ClaimItems result:");
     console.log(result);
+    console.log(result[1][0][1]);
+
+    // result = await actionParserWithSigner.readSimple();
+    // console.log("Simple result:");
+    // console.log(result);
 }
 
 main().catch((error) => {
