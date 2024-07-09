@@ -3,11 +3,11 @@ pragma solidity ^0.8.24;
 
 contract ActionParser {
     struct HackAndSlash {
-        uint8[16] id;
-        uint8[16][] costumes;
-        uint8[16][] equipments;
-        uint8[16][] foods;
-        int64[][] r;
+        bytes16 id;
+        bytes16[] costumes;
+        bytes16[] equipments;
+        bytes16[] foods;
+        RuneSlotInfo[] r;
         int64 worldId;
         int64 stageId;
         int64 stageBuffId; // -1 if null
@@ -17,14 +17,14 @@ contract ActionParser {
     }
 
     struct Grinding {
-        uint8[16] id;
+        bytes16 id;
         address a;
-        uint8[16][] e;
+        bytes16[] e;
         bool c;
     }
 
     struct CombinationEquipment {
-        uint8[16] id;
+        bytes16 id;
         address a;
         int64 s;
         int64 r;
@@ -35,16 +35,16 @@ contract ActionParser {
     }
 
     struct RapidCombination {
-        uint8[16] id;
+        bytes16 id;
         address avatarAddress;
         int64 slotIndex;
     }
 
     struct HackAndSlashSweep {
-        uint8[16] id;
-        uint8[16][] costumes;
-        uint8[16][] equipments;
-        int64[][] runeInfos;
+        bytes16 id;
+        bytes16[] costumes;
+        bytes16[] equipments;
+        RuneSlotInfo[] runeInfos;
         address avatarAddress;
         int64 apStoneCount;
         int64 actionPoint;
@@ -60,7 +60,7 @@ contract ActionParser {
     }
 
     struct ClaimItems {
-        uint8[16] id;
+        bytes16 id;
         ClaimData[] cd;
         string m; // "" if null
     }
@@ -71,8 +71,31 @@ contract ActionParser {
     }
 
     struct DailyReward {
-        uint8[16] id;
+        bytes16 id;
         address a;
+    }
+
+    struct AuraSummon {
+        bytes16 id;
+        address aa;
+        int64 gid;
+        int64 sc;
+    }
+
+    struct ExploreAdventureBoss {
+        bytes16 id;
+        int64 season;
+        address avatarAddress;
+        bytes16[] costumes;
+        bytes16[] equipments;
+        bytes16[] foods;
+        RuneSlotInfo[] r;
+        int64 stageBuffId; // -1 if null
+    }
+
+    struct RuneSlotInfo {
+        int64 slotIndex;
+        int64 runeId;
     }
 
     struct FungibleAssetValue {
@@ -147,6 +170,20 @@ contract ActionParser {
         (bool ok, bytes memory out) = actionDeserializer(input);
         require(ok);
         DailyReward memory _struct = abi.decode(out, (DailyReward));
+        return _struct;
+    }
+
+    function parseAuraSummon(bytes memory input) public view returns (AuraSummon memory){
+        (bool ok, bytes memory out) = actionDeserializer(input);
+        require(ok);
+        AuraSummon memory _struct = abi.decode(out, (AuraSummon));
+        return _struct;
+    }
+
+    function parseExploreAdventureBoss(bytes memory input) public view returns (ExploreAdventureBoss memory){
+        (bool ok, bytes memory out) = actionDeserializer(input);
+        require(ok);
+        ExploreAdventureBoss memory _struct = abi.decode(out, (ExploreAdventureBoss));
         return _struct;
     }
 }
