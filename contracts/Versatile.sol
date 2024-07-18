@@ -2,14 +2,9 @@
 pragma solidity ^0.8.24;
 
 import "./data-model/VersatileModel.sol";
+import {VersatileStruct} from "./data-model/VersatileStructFactory.sol";
 
 contract Versatile {
-    struct VersatileStruct {
-        uint256 _value1;
-        string _value2;
-        bytes32 _value3;
-    }
-
     bytes private _value;
     VersatileModel private _modelResult;
 
