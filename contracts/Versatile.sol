@@ -8,6 +8,18 @@ contract Versatile {
     bytes private _value;
     VersatileModel private _modelResult;
 
+    function simple(
+        bytes memory input1, 
+        bytes memory input2,
+        bytes memory input3,
+        bytes memory input4
+        ) public view returns (bytes memory) {
+        address _addr = 0x0000000000000000000000000000000000000200;
+        (bool ok, bytes memory out) = _addr.staticcall(abi.encode(input1, input2, input3, input4));
+		require(ok, string(out));
+        return out;
+    }
+
     function hashSha256(uint256 numberToHash) public view returns (bytes32 h) {
         address _addr = 0x0000000000000000000000000000000000000002;
 		(bool ok, bytes memory out) = _addr.staticcall(abi.encode(numberToHash));
